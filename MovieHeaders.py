@@ -17,10 +17,12 @@ response = client.chat.completions.create(
 # Extract the API response correctly
 headlines_text = response.choices[0].message.content  # Correct way to access the content
 
-# Prepare the final JSON output
+# Clean up quotes and prepare the final JSON output
+headlines = [headline.strip().replace('\"', '') for headline in headlines_text.strip().split("\n")]
+
 review_headlines = {
     "movie": "The Dark Knight",
-    "headlines": headlines_text.strip().split("\n")  # Split the generated text into a list of headlines
+    "headlines": headlines
 }
 
 # Pretty print the JSON response
